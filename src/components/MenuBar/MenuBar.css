@@ -1,5 +1,6 @@
 .Menubar {
   height: 100%;
+  float: left;
 }
 
 .MenuItems {

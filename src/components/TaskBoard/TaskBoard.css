@@ -1,0 +1,58 @@
+.TaskBoard {
+  min-height: 60vh;
+  max-height: 80vh;
+}
+
+.TaskBoard h2 {
+  margin: 10px;
+}
+
+.TableHeader,
+.TableDataRow {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  padding-inline-start: 0px;
+  margin: 0px;
+}
+
+.TableHeader {
+  height: 30px;
+  color: #6d6d6d;
+  border: 1px solid #afafaf;
+  background-color: #dfdfdf;
+}
+
+.TableHeader li,
+.TableDataRow li {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+.TableDataRow {
+  border: 0px;
+  border-bottom: 1px;
+  border-color: #afafaf;
+  border-style: solid;
+}
+
+.TableHeader li:first-of-type,
+.TableDataRow li:first-of-type {
+  width: 10%;
+}
+
+.TableBody ul:last-of-type {
+    border-bottom: 0px;
+}
+
+.TableBody{
+    max-height: 65vh;
+    overflow: auto;
+    border: 0px;
+    border-right: 1px;
+    border-left: 1px;
+    border-bottom: 1px;
+    border-color: #afafaf;
+    border-style: solid;
+}

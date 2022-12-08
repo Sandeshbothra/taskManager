@@ -6,18 +6,37 @@ import { LoginForm } from "./components/Forms/LoginForm/LoginForm";
 import { SignupForm } from "./components/Forms/SignupForm/SignupForm";
 import { ProtectedRoute } from "./components/AuthComponents/ProtectedRoute";
 import { AuthLayout } from "./components/AuthComponents/AuthLayout";
+import { Reports } from "./pages/Report";
+import { Home } from "./pages/Home";
 
 const router = createBrowserRouter([
   {
     element: <AuthLayout />, //Added Authlayout for performing user authentication before redirecting to any route
     children: [
       {
-        path: "/",
         element: (
           <ProtectedRoute>
             <App />
           </ProtectedRoute>
         ),
+        children: [
+          {
+            path: "/",
+            element: (
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            ),
+          },
+          {
+            path: "/reports",
+            element: (
+              <ProtectedRoute>
+                <Reports />
+              </ProtectedRoute>
+            ),
+          },
+        ],
       },
       {
         path: "/login",

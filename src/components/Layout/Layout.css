@@ -1,3 +1,9 @@
 .Layout{
     height: 100vh;
 }
+
+.main-container{
+    float: left;
+    min-width: calc(100% - 110px);
+    max-width: calc(100% - 40px);
+}
