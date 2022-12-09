@@ -26,19 +26,19 @@ export const LoginForm = () => {
     if (userObj) {
       if (userObj.password == password) {
         setErrorMsg(null);
-        setSuccessMessage("User Logged in successfully");
+        setSuccessMessage("Logged in successfully");
         login({ id: userObj.id, username: username });
         setTimeout(() => {
           navigate("/");
         }, 1000);
       } else {
-        setErrorMsg("Invaid Password");
+        setErrorMsg("Password does not match");
       }
     } else {
       addDoc(collection(db, "user"), formData).then((res) => {
         login({ id: res.id, username: formData.username });
         setErrorMsg(null);
-        setSuccessMessage("User Create and Logged in successfully");
+        setSuccessMessage("User created successfully");
         setTimeout(() => {
           navigate("/");
         }, 500);

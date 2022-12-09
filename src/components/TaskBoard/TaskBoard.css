@@ -14,6 +14,7 @@
   align-items: center;
   padding-inline-start: 0px;
   margin: 0px;
+  justify-content: flex-end;
 }
 
 .TableHeader {
@@ -21,6 +22,7 @@
   color: #6d6d6d;
   border: 1px solid #afafaf;
   background-color: #dfdfdf;
+  height: 35px;
 }
 
 .TableHeader li,
@@ -28,6 +30,7 @@
   float: left;
   width: 25%;
   padding: 10px;
+  border-right: 1px solid #8f8f8f;
 }
 
 .TableDataRow {
@@ -35,11 +38,17 @@
   border-bottom: 1px;
   border-color: #afafaf;
   border-style: solid;
+  height: 35px;
 }
 
 .TableHeader li:first-of-type,
 .TableDataRow li:first-of-type {
-  width: 10%;
+  width: 20%;
+}
+
+.TableHeader li:first-of-type,
+.TableDataRow li:first-of-type {
+  width: 20%;
 }
 
 .TableBody ul:last-of-type {
@@ -48,7 +57,7 @@
 
 .TableBody{
     max-height: 65vh;
-    overflow: auto;
+    overflow-y: auto;
     border: 0px;
     border-right: 1px;
     border-left: 1px;

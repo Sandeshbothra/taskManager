@@ -72,23 +72,17 @@ export const ReportsView = () => {
   };
 
   const getSortButton = (field) => {
-    if (sortBy.key == field) {
-      return sortBy.value == "asc" ? (
+    return (
+      <>
         <BsCaretDownFill
           onClick={() => setSortBy({ key: field, value: "des" })}
         />
-      ) : (
+
         <BsCaretUpFill
           onClick={() => setSortBy({ key: field, value: "asc" })}
         />
-      );
-    } else {
-      return (
-        <BsCaretUpFill
-          onClick={() => setSortBy({ key: field, value: "asc" })}
-        />
-      );
-    }
+      </>
+    );
   };
 
   return (
