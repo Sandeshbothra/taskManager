@@ -9,7 +9,6 @@ export const ReportsView = () => {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const tasks = useSelector((state) => Object.values(state.task.tasks || {}));
-  const [filteredTask, setFilteredTask] = useState(null);
   const [filters, setFilters] = useState({});
   const [sortBy, setSortBy] = useState({ key: "title", value: "asc" });
 

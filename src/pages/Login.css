@@ -1,12 +1,23 @@
+.LoginContainer{
+  height: 100vh;
+  background-color: #8f8f8f;
+}
 .LoginPage {
   width: 350px;
   height: 350px;
   position: absolute;
   top: calc(50% - 150px);
-  left: calc(50% - 150px);
+  right: calc(50% - 150px);
   margin: -50px 0 0 -50px;
+  background-color: #ffffff;
   box-shadow: 0 0 12px rgb(0 0 0 / 5%);
   padding: 40px 20px;
+  border-radius: 4px;
+}
+
+.LoginHeader{
+  text-align: center;
+  color: #6a6a6a;
 }
 
 .LoginForm {
@@ -38,7 +49,18 @@
 }
 
 .LoginForm .secondary-btn {
-  color: #6d6d6d;;
+  color: #6d6d6d;
   border: 1px solid #afafaf;
-  background-color:#dfdfdf
+  background-color: #dfdfdf;
+}
+
+.error,
+.success {
+  margin-block-start: 5px;
+  margin-block-end: 5px;
+  margin-inline-start: 20px;
+  font-size: 12px;
+}
+.error {
+  color: red;
 }
