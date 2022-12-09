@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import App from "./App";
 import { Login } from "./pages/Login";
 import { LoginForm } from "./components/Forms/LoginForm/LoginForm";
-import { SignupForm } from "./components/Forms/SignupForm/SignupForm";
 import { ProtectedRoute } from "./components/AuthComponents/ProtectedRoute";
 import { AuthLayout } from "./components/AuthComponents/AuthLayout";
 import { Reports } from "./pages/Report";
@@ -45,15 +44,7 @@ const router = createBrowserRouter([
             <LoginForm></LoginForm>
           </Login>
         ),
-      },
-      {
-        path: "/signup",
-        element: (
-          <Login>
-            <SignupForm></SignupForm>
-          </Login>
-        ),
-      },
+      }
     ],
   },
 ]);

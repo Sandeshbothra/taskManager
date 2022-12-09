@@ -20,7 +20,6 @@ export const useLocalStorage = (keyName, defaultValue) => {
     setStoredValue(newValue);
   };
   const removeValue = () => {
-    console.log("inside remove value")
     window.localStorage.removeItem(keyName);
     setStoredValue(null);
   }

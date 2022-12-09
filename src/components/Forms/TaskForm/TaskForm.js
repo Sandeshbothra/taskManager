@@ -10,6 +10,7 @@ export const TaskForm = () => {
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [status, setStatus] = useState("Pending");
+
   const addTask = (e) => {
     e.preventDefault();
     let data = {
@@ -22,7 +23,7 @@ export const TaskForm = () => {
   };
   return (
     <div className="TaskForm">
-      <h3>Add Task</h3>
+      <h3>Create Task</h3>
       <form onSubmit={addTask}>
         <div className="formFields">
           <label htmlFor="title">Title</label><br/>
@@ -31,6 +32,7 @@ export const TaskForm = () => {
             name="title"
             placeholder="Title"
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </div>
         <div className="formFields">
@@ -43,18 +45,8 @@ export const TaskForm = () => {
           />
         </div>
         <div className="formFields">
-          <label htmlFor="status">Status</label><br/>
-          <input
-            type="checkbox"
-            name="status"
-            onChange={(e) =>
-              setStatus(e.target.checked ? "Complete" : "Pending")
-            }
-          />
-        </div>
-        <div className="formFields">
           <button type="submit" value="submit">
-            Add
+            Add Task
           </button>
         </div>
       </form>

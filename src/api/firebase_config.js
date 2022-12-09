@@ -1,14 +1,16 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAvTcCBMNvvrzGpWAUDlUWYKCr_GEY2wlw",
-  authDomain: "taskmanager-f1cdf.firebaseapp.com",
-  projectId: "taskmanager-f1cdf",
-  storageBucket: "taskmanager-f1cdf.appspot.com",
-  messagingSenderId: "874395024875",
-  appId: "1:874395024875:web:69ce00e7d4895b849d2dae"
+  apiKey: "AIzaSyD67_W3EsLSBpZft9EpZkVaMhGR-3ZNLhE",
+  authDomain: "taskmanager-4af9e.firebaseapp.com",
+  projectId: "taskmanager-4af9e",
+  storageBucket: "taskmanager-4af9e.appspot.com",
+  messagingSenderId: "632105388224",
+  appId: "1:632105388224:web:5a9c8417c7d15914dbc525",
 };
 
 // Initialize Firebase
-export const firebaseDB = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+export const firebaseDB = getFirestore(app);

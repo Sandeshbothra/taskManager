@@ -1,5 +1,12 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
-import { getDatabase, ref, onValue, set, push } from "firebase/database";
+import {
+  collection,
+  addDoc,
+  setDoc,
+  getDocs,
+  getFirestore,
+  doc,
+} from "firebase/firestore";
 
 const initialState = {
   tasks: {},
@@ -35,47 +42,50 @@ export const taskSlice = createSlice({
     addTask: (state, action) => {
       state.tasks = { ...state.tasks, ...action.payload };
     },
+    reset: (state, action) => {
+      state = initialState;
+    },
   },
 });
 
-export const { getTasks, updateTasks, addTask } = taskSlice.actions;
+export const { getTasks, updateTasks, addTask, reset } = taskSlice.actions;
 
 export const fetchTask = (user_id) => (dispatch, getState) => {
-  const db = getDatabase();
-  const taskRef = ref(db, "/tasks");
-  onValue(taskRef, (snapshot) => {
-    const data = snapshot.val();
-    let userTask = {};
-    if (data) {
-      Object.keys(data).forEach((key) => {
-        if (data[key].user_id == user_id) {
-          userTask[key] = { id: key, ...data[key] };
-        }
-      });
-      dispatch(addTask(userTask || {}));
-    }
+  const db = getFirestore();
+  getDocs(collection(db, "task")).then((docs) => {
+    let tasks = {};
+    docs.forEach((doc) => {
+      if (doc.data().user_id == user_id) {
+        tasks[doc.id] = { ...doc.data(), id: doc.id };
+      }
+    });
+    dispatch(getTasks(tasks));
   });
 };
 
 export const postTask = (data) => (dispatch, getState) => {
-  const db = getDatabase();
-  push(ref(db, "tasks"), {
+  const db = getFirestore();
+  data["created_on"] = new Date().getTime();
+  addDoc(collection(db, "task"), {
     ...data,
-    created_on: new Date().getTime(),
   }).then((response) => {
-    dispatch(addTask(response.toJSON()));
+    dispatch(addTask({ [response.id]: { ...data, id: response.id } }));
   });
 };
 
 export const updateStatus = (task_id) => (dispatch, getState) => {
-  const db = getDatabase();
-  let tasks = getState().task.tasks;
+  const db = getFirestore();
   let taskStatus =
-    tasks[task_id].status == "Complete" ? "Pending" : "Complete";
-  set(ref(db, `tasks/${task_id}`), {
-    ...tasks[task_id],
-    status: taskStatus,
-  }).then((response) => {
+    getState().task.tasks[task_id].status == "Complete"
+      ? "Pending"
+      : "Complete";
+  setDoc(
+    doc(db, "task", task_id),
+    {
+      status: taskStatus,
+    },
+    { merge: true }
+  ).then((response) => {
     dispatch(updateTasks({ id: task_id, status: taskStatus }));
   });
 };

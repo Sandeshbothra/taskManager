@@ -32,7 +32,7 @@ export const TaskBoard = () => {
             <ul className="TableDataRow" key={Math.random()}>
               <li>{index}</li>
               <li>{task.title}</li>
-              <li>{new Date(task.due_date).toLocaleDateString()}</li>
+              <li>{!isNaN(task.due_date) ? new Date(task.due_date).toLocaleDateString() : 'NA'}</li>
               <li>
                 <input
                   type="checkbox"

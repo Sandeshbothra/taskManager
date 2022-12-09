@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "./../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { reset } from "./../../store/slice/TaskSlice";
 import {
   AiOutlineMenuUnfold,
   AiOutlineMenuFold,
@@ -11,9 +14,16 @@ import "./MenuBar.css";
 export const MenuBar = () => {
   const { logout } = useAuth();
   const [navbarOpen, setNavbarOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleToggle = () => {
     setNavbarOpen(!navbarOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    dispatch(reset())
   };
 
   return (
@@ -26,15 +36,19 @@ export const MenuBar = () => {
             <AiOutlineMenuUnfold className="MenuIcon" />
           )}
         </li>
-        <li className="MenuItem" title="Home">
+        <li className="MenuItem" title="Home" onClick={() => navigate("/")}>
           <AiFillHome className="MenuIcon" />
           {navbarOpen && <p className="MenuText">Home</p>}
         </li>
-        <li className="MenuItem" title="Reports">
+        <li
+          className="MenuItem"
+          title="Reports"
+          onClick={() => navigate("/reports")}
+        >
           <TbDeviceAnalytics className="MenuIcon" />
           {navbarOpen && <p className="MenuText">Reports</p>}
         </li>
-        <li className="MenuItem" onClick={logout} title="Logout">
+        <li className="MenuItem" onClick={handleLogout} title="Logout">
           <TbLogout className="MenuIcon" />
           {navbarOpen && <p className="MenuText">Logout</p>}
         </li>

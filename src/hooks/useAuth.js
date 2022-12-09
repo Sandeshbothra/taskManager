@@ -1,38 +1,53 @@
-import React , { createContext, useContext, useEffect, useMemo } from "react";
+import React, { createContext, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
-import { getDatabase, ref, onValue, set, push } from "firebase/database";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getFirestore,
+  doc,
+} from "firebase/firestore";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser, removeUser] = useLocalStorage("user", null);
   const navigate = useNavigate();
-  const db = getDatabase();
+  const db = getFirestore();
 
   // call this function when you want to authenticate the user
   const login = async (formData) => {
-    const userRef = ref(db, "/users");
-    const error = null;
+    const { username, password } = formData;
+    let docs = await getDocs(collection(db, "user"));
     let userObj = null;
-    onValue(userRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) {
-        Object.keys(data).forEach((key) => {
-          if (data[key].username == formData.username) {
-            userObj = { id: key, username: formData.username };
-          }
-        });
-        if (userObj) {
-          setUser(userObj);
-        } else {
-          error = { ...errors, username: "User not found" };
-        }
+    docs.forEach((doc) => {
+      let user = doc.data();
+      if (user.username == username) {
+        userObj = { ...user, id: doc.id };
       }
     });
-    if(userObj){
-        navigate('/') 
+    if (userObj) {
+      if (userObj.password == password) {
+        setUser({ id: userObj.id, username: formData.username });
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+        return { status: "Success", message: "User Logged in successfully" };
+      } else {
+        return { status: error ? "Failed" : "Success", errorObj: error };
+      }
+    } else {
+      addDoc(collection(db, "user"), formData).then((res) => {
+        setUser({ id: res.id, username: formData.username });
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+        return {
+          status: "Success",
+          message: "User Create and Logged in successfully",
+        };
+      });
     }
-    return { status: error ? "Failed" : "Success", errorObj: error };
   };
 
   // call this function to sign out logged in user
