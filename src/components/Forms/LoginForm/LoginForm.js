@@ -27,7 +27,7 @@ export const LoginForm = () => {
       if (userObj.password == password) {
         setErrorMsg(null);
         setSuccessMessage("User Logged in successfully");
-        login({ id: userObj.id, username: username })
+        login({ id: userObj.id, username: username });
         setTimeout(() => {
           navigate("/");
         }, 1000);
@@ -36,7 +36,7 @@ export const LoginForm = () => {
       }
     } else {
       addDoc(collection(db, "user"), formData).then((res) => {
-        login({ id: res.id, username: formData.username })
+        login({ id: res.id, username: formData.username });
         setErrorMsg(null);
         setSuccessMessage("User Create and Logged in successfully");
         setTimeout(() => {
@@ -66,7 +66,12 @@ export const LoginForm = () => {
         </p>
       )}
 
-      <button type={"submit"} value="submit" className="primary-btn">
+      <button
+        type={"submit"}
+        value="submit"
+        className={!successMessage ? "primary-btn" : "disabled-btn"}
+        disabled={!!successMessage}
+      >
         LOGIN
       </button>
     </form>

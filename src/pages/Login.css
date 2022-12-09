@@ -1,4 +1,4 @@
-.LoginContainer{
+.LoginContainer {
   height: 100vh;
   background-color: #8f8f8f;
 }
@@ -15,7 +15,7 @@
   border-radius: 4px;
 }
 
-.LoginHeader{
+.LoginHeader {
   text-align: center;
   color: #6a6a6a;
 }
@@ -46,6 +46,13 @@
   color: #ffffff;
   background-color: #ef5445;
   border: 2px solid #ef5445;
+}
+
+.disabled-btn {
+  color: #fff;
+  cursor: not-allowed !important;
+  background-color: #cfcfcf;
+  border: 2px solid #cfcfcf;
 }
 
 .LoginForm .secondary-btn {
